@@ -1,0 +1,22 @@
+api.1337.legal {
+        encode gzip
+        reverse_proxy http://backend:3000
+
+        tls /etc/caddy/certificates/1337.crt /etc/caddy/certificates/1337.key
+}
+
+http://sdxckw2f4nwunlcvc5ct34z67octnhxdilpwe7vfsou3aftbwolusnid.onion {
+        encode gzip
+
+        @api path /api/*
+        handle @api {
+                reverse_proxy http://backend:3000
+        }
+
+        handle {
+                reverse_proxy https://1337legal.pages.dev {
+                        header_up Host 1337legal.pages.dev
+                        header_up X-Forwarded-Host {host}
+                }
+        }
+}
