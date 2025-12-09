@@ -57,6 +57,8 @@ services:
       - ./certificates:/app/certificates
     environment:
       DATABASE_URL: ${DATABASE_URL}
+      RELAY_CERTIFICATES: ${RELAY_CERTIFICATES}
+      RELAY_PRIVATE_KEY: ${RELAY_PRIVATE_KEY}
 
   tor:
     image: osminogin/tor-simple:latest
